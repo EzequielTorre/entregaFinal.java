@@ -1,6 +1,6 @@
 # 🛒 TECHLAB - Sistema de Gestión E-commerce
 
-¡Hola! Soy Ezequiel Torres y este es mi proyecto de **Entrega Final** para la materia de Programación Java.
+¡Hola! Soy Ezequiel Torres y este es mi proyecto de **Entrega Final** para el curso Talento Tech de Programación Java.
 
 ---
 
@@ -21,7 +21,7 @@ Es un sistema completo para gestionar un local de tecnología. Incluye:
 
 - **Backend**: Java 17 con Spring Boot 3.2.0
 - **Persistencia**: Spring Data JPA
-- **Base de Datos**: H2 (en memoria, no requiere instalación) + MySQL compatible
+- **Base de Datos**: H2 + MySQL compatible
 - **Frontend**: HTML5, CSS3 y JavaScript con Bootstrap 5
 - **Control de Versiones**: Git
 
@@ -44,14 +44,14 @@ src/main/resources/
 
 ## 🚀 ¿Cómo ejecutarlo?
 
-1.  **Abrir el proyecto** en tu IDE favorito (IntelliJ, Eclipse, VS Code con extensiones).
+1.  **Abrir el proyecto** en tu IDE favorito 
 2.  **Ejecutar la clase**: `PreentregaApplication.java`
 3.  **Abrir el navegador** y visitar:
     - 🏪 **TECHLAB**: `http://localhost:8082/index.html`
     - 🗄️ **H2 Console (base de datos)**: `http://localhost:8082/h2-console`
       - URL JDBC: `jdbc:h2:mem:techlab_db`
       - Usuario: `sa`
-      - Contraseña: (dejar vacía)
+      - Contraseña: `no tiene`
 
 ---
 
@@ -72,4 +72,4 @@ Aplicar conceptos avanzados de Java como:
 - Profesor: Miguel Nefle
 - Tutora: Natalia Themtham
 
-¡Gracias por el cursado! 🎓
+¡Gracias por el cursado! 
