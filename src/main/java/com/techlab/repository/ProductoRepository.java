@@ -1,9 +1,12 @@
-package ar.com.cac.preentrega.repository;
+package com.techlab.repository;
 
-import ar.com.cac.preentrega.model.Producto;
+import com.techlab.productos.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
+    List<Producto> findByNombreContainingIgnoreCase(String nombre);
 }

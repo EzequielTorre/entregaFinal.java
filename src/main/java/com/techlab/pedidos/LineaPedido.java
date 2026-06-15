@@ -1,5 +1,6 @@
-package ar.com.cac.preentrega.model;
+package com.techlab.pedidos;
 
+import com.techlab.productos.Producto;
 import jakarta.persistence.*;
 
 @Entity

@@ -15,3 +15,12 @@
 # Archivos temporales del sistema
 Thumbs.db
 .DS_Store
+
+# Carpeta de compilación de Maven
+target/
+
+# Base de datos local
+data/
+*.db
+*.mv.db
+*.trace.db

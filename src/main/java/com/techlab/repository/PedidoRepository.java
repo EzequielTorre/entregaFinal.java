@@ -1,6 +1,6 @@
-package ar.com.cac.preentrega.repository;
+package com.techlab.repository;
 
-import ar.com.cac.preentrega.model.Pedido;
+import com.techlab.pedidos.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

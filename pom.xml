@@ -8,9 +8,9 @@
 		<version>3.2.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>ar.com.cac</groupId>
-	<artifactId>preentrega</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.techlab</groupId>
+	<artifactId>techlab</artifactId>
+	<version>1.0.0</version>
 	<name>techlab</name>
 	<description>Sistema de Gestión TECHLAB - E-commerce</description>
 	<properties>
@@ -53,6 +53,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>com.techlab.TechlabApplication</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

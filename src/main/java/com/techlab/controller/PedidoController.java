@@ -1,9 +1,8 @@
-package ar.com.cac.preentrega.controller;
+package com.techlab.controller;
 
-import ar.com.cac.preentrega.exception.StockInsuficienteException;
-import ar.com.cac.preentrega.model.LineaPedido;
-import ar.com.cac.preentrega.model.Pedido;
-import ar.com.cac.preentrega.service.TiendaService;
+import com.techlab.pedidos.Pedido;
+import com.techlab.pedidos.LineaPedido;
+import com.techlab.service.TiendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +22,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    public Pedido crear(@RequestBody List<LineaPedido> lineas) throws StockInsuficienteException {
+    public Pedido crear(@RequestBody List<LineaPedido> lineas) {
         return tiendaService.crearPedido(lineas);
     }
 }

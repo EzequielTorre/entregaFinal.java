@@ -1,4 +1,4 @@
-package ar.com.cac.preentrega.model;
+package com.techlab.pedidos;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -18,7 +18,18 @@ public class Pedido {
 
     private LocalDateTime fecha = LocalDateTime.now();
 
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estado = EstadoPedido.PENDIENTE;
+
     public Pedido() {
+    }
+
+    public void agregarLinea(LineaPedido linea) {
+        lineas.add(linea);
+    }
+
+    public double getTotal() {
+        return lineas.stream().mapToDouble(LineaPedido::getSubtotal).sum();
     }
 
     public Long getId() {
@@ -45,11 +56,11 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public void agregarLinea(LineaPedido linea) {
-        lineas.add(linea);
+    public EstadoPedido getEstado() {
+        return estado;
     }
 
-    public double getTotal() {
-        return lineas.stream().mapToDouble(LineaPedido::getSubtotal).sum();
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
     }
 }

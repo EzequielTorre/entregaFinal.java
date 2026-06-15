@@ -1,4 +1,4 @@
-package ar.com.cac.preentrega.exception;
+package com.techlab.excepciones;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneral(Exception ex) {
         Map<String, String> error = new HashMap<>();
-        error.put("error", "Ha ocurrido un error inesperado: " + ex.getMessage());
+        error.put("error", "Error inesperado: " + ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 }

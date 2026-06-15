@@ -27,21 +27,21 @@
             class="list-group-item list-group-item-action bg-dark text-white border-0 py-3"
             onclick="showSection('productos')"
           >
-            <i class="fas fa-box me-2"></i> Gestionar Productos
+            <i class="fas fa-box me-2"></i> 1) Gestionar Productos
           </a>
           <a
             href="#"
             class="list-group-item list-group-item-action bg-dark text-white border-0 py-3"
             onclick="showSection('categorias')"
           >
-            <i class="fas fa-tags me-2"></i> Gestionar Categorías
+            <i class="fas fa-tags me-2"></i> 2) Gestionar Categorías
           </a>
           <a
             href="#"
             class="list-group-item list-group-item-action bg-dark text-white border-0 py-3"
             onclick="showSection('carrito')"
           >
-            <i class="fas fa-shopping-cart me-2"></i> Ver Carrito
+            <i class="fas fa-shopping-cart me-2"></i> 3) Ver Carrito
             <span id="cart-count" class="badge bg-info">0</span>
           </a>
           <a
@@ -49,21 +49,14 @@
             class="list-group-item list-group-item-action bg-dark text-white border-0 py-3"
             onclick="showSection('historial')"
           >
-            <i class="fas fa-history me-2"></i> Historial de Pedidos
+            <i class="fas fa-history me-2"></i> 5) Historial de Pedidos
           </a>
           <a
             href="#"
             class="list-group-item list-group-item-action bg-dark text-white border-0 py-3"
             onclick="showSection('admin')"
           >
-            <i class="fas fa-user-shield me-2"></i> Administración
-          </a>
-          <a
-            href="#"
-            class="list-group-item list-group-item-action bg-danger text-white border-0 py-3 mt-5"
-            onclick="window.close()"
-          >
-            <i class="fas fa-sign-out-alt me-2"></i> Salir
+            <i class="fas fa-user-shield me-2"></i> 6) Administración
           </a>
         </div>
       </div>
@@ -77,38 +70,77 @@
             <button class="btn btn-info" id="menu-toggle">
               <i class="fas fa-bars"></i>
             </button>
-            <h4 class="ms-3 mb-0" id="section-title">Panel Principal</h4>
+            <h4 class="ms-3 mb-0" id="section-title">
+              SISTEMA DE GESTIÓN - TECHLAB
+            </h4>
           </div>
         </nav>
 
         <div id="content">
-          <!-- Secciones se cargarán aquí dinámicamente -->
-
           <!-- Sección Productos -->
           <section id="productos-section" class="d-none">
             <div class="card shadow-sm">
               <div
                 class="card-header bg-info text-white d-flex justify-content-between align-items-center"
               >
-                <h5 class="mb-0">Gestión de Productos</h5>
-                <button
-                  class="btn btn-light btn-sm"
-                  data-bs-toggle="modal"
-                  data-bs-target="#productModal"
-                >
-                  <i class="fas fa-plus"></i> Agregar Producto
-                </button>
+                <h5 class="mb-0">———————Gestion de Productos———————</h5>
+                <div>
+                  <button
+                    class="btn btn-light btn-sm me-2"
+                    onclick="showBuscarPorId()"
+                  >
+                    <i class="fas fa-search"></i> Buscar por ID
+                  </button>
+                  <button
+                    class="btn btn-light btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#productModal"
+                  >
+                    <i class="fas fa-plus"></i> Agregar Producto
+                  </button>
+                </div>
               </div>
               <div class="card-body">
+                <!-- Búsqueda por ID -->
+                <div id="buscar-id-section" class="mb-4 d-none">
+                  <div class="input-group">
+                    <input
+                      type="number"
+                      id="buscar-id"
+                      class="form-control"
+                      placeholder="Ingrese ID del producto..."
+                    />
+                    <button
+                      class="btn btn-info"
+                      onclick="buscarProductoPorId()"
+                    >
+                      Buscar
+                    </button>
+                    <button
+                      class="btn btn-secondary"
+                      onclick="
+                        document
+                          .getElementById('buscar-id-section')
+                          .classList.add('d-none');
+                        loadProducts();
+                      "
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+
                 <div class="table-responsive">
                   <table class="table table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
+                        <th>Imagen</th>
                         <th>Nombre</th>
+                        <th>Descripción</th>
                         <th>Precio</th>
+                        <th>Categoría</th>
                         <th>Stock</th>
-                        <th>Tipo</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -147,7 +179,7 @@
           <section id="carrito-section" class="d-none">
             <div class="card shadow-sm">
               <div class="card-header bg-info text-white">
-                <h5 class="mb-0">Carrito de Compras</h5>
+                <h5 class="mb-0">3) Ver Carrito de Compras</h5>
               </div>
               <div class="card-body">
                 <div id="cart-items" class="mb-4"></div>
@@ -156,7 +188,7 @@
                 >
                   <h4>Total: $<span id="cart-total">0.00</span></h4>
                   <button class="btn btn-success btn-lg" onclick="checkout()">
-                    Realizar Pedido
+                    4) Realizar Pedido
                   </button>
                 </div>
               </div>
@@ -167,7 +199,7 @@
           <section id="historial-section" class="d-none">
             <div class="card shadow-sm">
               <div class="card-header bg-info text-white">
-                <h5 class="mb-0">Historial de Pedidos</h5>
+                <h5 class="mb-0">5) Historial de Pedidos</h5>
               </div>
               <div class="card-body" id="historial-list"></div>
             </div>
@@ -176,61 +208,12 @@
           <!-- Sección Administración -->
           <section id="admin-section" class="d-none">
             <div class="row">
-              <div class="col-md-6">
-                <div class="card shadow-sm mb-4">
-                  <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0">Gestión de Usuarios</h5>
-                  </div>
-                  <div class="card-body">
-                    <form id="usuario-form" class="mb-3">
-                      <div class="mb-2">
-                        <input
-                          type="text"
-                          id="u-nombre"
-                          class="form-control"
-                          placeholder="Nombre"
-                          required
-                        />
-                      </div>
-                      <div class="mb-2">
-                        <input
-                          type="email"
-                          id="u-email"
-                          class="form-control"
-                          placeholder="Email"
-                          required
-                        />
-                      </div>
-                      <div class="input-group">
-                        <select id="u-rol" class="form-select">
-                          <option value="USER">Usuario</option>
-                          <option value="ADMIN">Administrador</option>
-                        </select>
-                        <button class="btn btn-dark" type="submit">
-                          Agregar
-                        </button>
-                      </div>
-                    </form>
-                    <div class="table-responsive">
-                      <table class="table table-sm">
-                        <thead>
-                          <tr>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Rol</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody id="usuarios-table"></tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="card shadow-sm">
                   <div class="card-header bg-dark text-white">
-                    <h5 class="mb-0">Control de Stock Crítico</h5>
+                    <h5 class="mb-0">
+                      6) Administración - Control de Stock Crítico
+                    </h5>
                   </div>
                   <div class="card-body">
                     <p class="small text-muted">
@@ -252,7 +235,7 @@
         <div class="modal-content">
           <form id="product-form">
             <div class="modal-header">
-              <h5 class="modal-title">Producto</h5>
+              <h5 class="modal-title">a) Agregar Producto</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -270,6 +253,15 @@
                 />
               </div>
               <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea
+                  id="p-descripcion"
+                  class="form-control"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
                 <label class="form-label">Precio</label>
                 <input
                   type="number"
@@ -280,44 +272,32 @@
                 />
               </div>
               <div class="mb-3">
-                <label class="form-label">Stock</label>
+                <label class="form-label">Categoría</label>
                 <input
-                  type="number"
-                  id="p-stock"
+                  type="text"
+                  id="p-categoria"
                   class="form-control"
                   required
                 />
               </div>
               <div class="mb-3">
-                <label class="form-label">Categoría</label>
-                <select id="p-categoria" class="form-select"></select>
+                <label class="form-label">Imagen (URL)</label>
+                <input
+                  type="url"
+                  id="p-imagen"
+                  class="form-control"
+                  placeholder="https://ejemplo.com/imagen.jpg"
+                />
               </div>
               <div class="mb-3">
-                <label class="form-label">Tipo de Producto</label>
-                <select
-                  id="p-tipo"
-                  class="form-select"
-                  onchange="toggleExtraFields()"
-                >
-                  <option value="ELECTRONICO">Electrónico</option>
-                  <option value="PERECEDERO">Perecedero</option>
-                </select>
-              </div>
-              <div id="electronico-fields">
-                <div class="mb-3">
-                  <label class="form-label">Garantía (Meses)</label>
-                  <input type="number" id="p-garantia" class="form-control" />
-                </div>
-              </div>
-              <div id="perecedero-fields" class="d-none">
-                <div class="mb-3">
-                  <label class="form-label">Días para Vencer</label>
-                  <input
-                    type="number"
-                    id="p-vencimiento"
-                    class="form-control"
-                  />
-                </div>
+                <label class="form-label">Stock</label>
+                <input
+                  type="number"
+                  id="p-stock"
+                  class="form-control"
+                  min="0"
+                  required
+                />
               </div>
             </div>
             <div class="modal-footer">
@@ -326,9 +306,91 @@
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
-                Cerrar
+                Volver al menú
               </button>
               <button type="submit" class="btn btn-info">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Buscar/Editar Producto -->
+    <div class="modal fade" id="editarProductModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="editar-product-form">
+            <div class="modal-header">
+              <h5 class="modal-title">c) Buscar / d) Actualizar Producto</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="editar-id" />
+              <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input
+                  type="text"
+                  id="editar-nombre"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea
+                  id="editar-descripcion"
+                  class="form-control"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Precio</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  id="editar-precio"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Categoría</label>
+                <input
+                  type="text"
+                  id="editar-categoria"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Imagen (URL)</label>
+                <input type="url" id="editar-imagen" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Stock</label>
+                <input
+                  type="number"
+                  id="editar-stock"
+                  class="form-control"
+                  min="0"
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Volver al menú
+              </button>
+              <button type="submit" class="btn btn-info">Actualizar</button>
             </div>
           </form>
         </div>
