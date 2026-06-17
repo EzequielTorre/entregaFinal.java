@@ -47,7 +47,7 @@ Este proyecto es un **sistema de gestión de e-commerce**, desarrollado en **Jav
 - ✅ **Excepciones personalizadas**: `StockInsuficienteException` (HTTP 400) y `ProductoNoEncontradoException` (HTTP 404).
 - ✅ **Manejo global de errores**: `GlobalExceptionHandler` para manejar excepciones en toda la API.
 - ✅ **Control de stock crítico**: Alertas en el frontend para productos con stock menor a 5 unidades.
-- ✅ **Buenas prácticas Spring Boot**: Inyección de dependencias por constructor (mejor práctica).
+- ✅ **Buenas prácticas Spring Boot**: Inyección de dependencias por constructor. 
 
 ### 4. Organización del Código
 
@@ -58,7 +58,7 @@ El proyecto sigue una estructura modular y organizada en paquetes lógicos:
   - `pedidos` → Entidades `Pedido`, `LineaPedido` y `EstadoPedido`
   - `excepciones` → Excepciones personalizadas y `GlobalExceptionHandler`
   - `controller` → Controladores REST (`ProductoController`, `PedidoController`)
-  - `service` → `TiendaService` (logica de negocio)
+  - `service` → `TiendaService` 
   - `repository` → Repositorios JPA (`ProductoRepository`, `PedidoRepository`)
 
 ---
@@ -70,7 +70,7 @@ El frontend cuenta con una interfaz intuitiva y fácil de usar con las siguiente
 1. **Gestionar Productos**
    - Agregar, listar, buscar por ID, actualizar y eliminar productos.
 2. **Gestionar Categorías**
-   - Ver y listado de categorías (se crean automáticamente al agregar productos).
+   - Ver y listado de categorías.
 3. **Ver Carrito de Compras**
    - Agregar productos al carrito, ver el total.
 4. **Realizar Pedido**
@@ -78,7 +78,7 @@ El frontend cuenta con una interfaz intuitiva y fácil de usar con las siguiente
 5. **Historial de Pedidos**
    - Ver todos los pedidos realizados con su estado y total.
 6. **Administración**
-   - Ver alertas de stock crítico (productos con menos de 5 unidades).
+   - Ver alertas de stock crítico (menos de 5 unidades).
 
 ---
 
@@ -92,18 +92,18 @@ El frontend cuenta con una interfaz intuitiva y fácil de usar con las siguiente
 
 ---
 
-## 🚀 Como Ejecutar el Proyecto
+## 🚀 Como Ejecutar el Proyecto:
 
 1. **Prerrequisitos**
 
 - Tener instalado:
   - Java 17 o superior
   - Maven
-  - Git (opcional, para clonar el repositorio)
+  - Git 
 
 2. **Paso a Paso**
 
-1. **Clonar el repositorio** (opcional si ya tienes el proyecto):
+1. **Clonar el repositorio** 
    ```bash
    git clone https://github.com/EzequielTorre/entregaFinal.java.git
    ```
@@ -124,7 +124,7 @@ El frontend cuenta con una interfaz intuitiva y fácil de usar con las siguiente
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura del Proyecto:
 
 ```
 src/main/
@@ -158,17 +158,16 @@ src/main/
 
 ---
 
-## 📝 Notas Importantes
+## 📝 Notas Importantes:
 
 - **Persistencia**: Los datos se guardan en un archivo `techlabdb.mv.db` dentro de la carpeta `data/`, por lo que NO se pierden al cerrar la aplicación.
 - **CORS**: La API está configurada para permitir conexiones desde cualquier origen para facilitar el desarrollo.
-- **Seguridad**: Esta es una versión para entrega final, por lo que no incluye seguridad (se puede agregar Spring Security en futuras versiones).
 
 ---
 
-## 🎯 Conclusión
+## 🎯 Conclusión:
 
-Este proyecto cumple con **todos los requerimientos obligatorios** y demuestra el uso práctico de conceptos avanzados de:
+Con este proyecto se demuestra el uso práctico de conceptos como:
 
 - Programación Orientada a Objetos (encapsulamiento, constructores, métodos get/set)
 - API RESTful con Spring Boot
@@ -176,11 +175,3 @@ Este proyecto cumple con **todos los requerimientos obligatorios** y demuestra e
 - Manejo de excepciones personalizadas
 - Integración entre Frontend y Backend con Fetch API
 - Buenas prácticas de desarrollo en Java y Spring Boot
-
-¡Es un proyecto listo para entrega! 😊
-
----
-
-## 📄 Licencia
-
-Este proyecto es de uso educativo y fue desarrollado como trabajo final de la materia Programación Orientada a Objetos / Back-End / Java.
