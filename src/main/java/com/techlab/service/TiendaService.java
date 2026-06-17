@@ -7,7 +7,6 @@ import com.techlab.pedidos.Pedido;
 import com.techlab.productos.Producto;
 import com.techlab.repository.PedidoRepository;
 import com.techlab.repository.ProductoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +15,13 @@ import java.util.List;
 @Service
 public class TiendaService {
 
-    @Autowired
-    private ProductoRepository productoRepository;
+    private final ProductoRepository productoRepository;
+    private final PedidoRepository pedidoRepository;
 
-    @Autowired
-    private PedidoRepository pedidoRepository;
+    public TiendaService(ProductoRepository productoRepository, PedidoRepository pedidoRepository) {
+        this.productoRepository = productoRepository;
+        this.pedidoRepository = pedidoRepository;
+    }
 
     // ========== PRODUCTOS ==========
     public List<Producto> listarProductos() {

@@ -3,7 +3,6 @@ package com.techlab.controller;
 import com.techlab.pedidos.Pedido;
 import com.techlab.pedidos.LineaPedido;
 import com.techlab.service.TiendaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +12,11 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class PedidoController {
 
-    @Autowired
-    private TiendaService tiendaService;
+    private final TiendaService tiendaService;
+
+    public PedidoController(TiendaService tiendaService) {
+        this.tiendaService = tiendaService;
+    }
 
     @GetMapping
     public List<Pedido> listar() {

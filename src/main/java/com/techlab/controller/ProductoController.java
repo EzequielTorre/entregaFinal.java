@@ -2,7 +2,6 @@ package com.techlab.controller;
 
 import com.techlab.productos.Producto;
 import com.techlab.service.TiendaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,11 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ProductoController {
 
-    @Autowired
-    private TiendaService tiendaService;
+    private final TiendaService tiendaService;
+
+    public ProductoController(TiendaService tiendaService) {
+        this.tiendaService = tiendaService;
+    }
 
     @GetMapping
     public List<Producto> listar() {

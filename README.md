@@ -1,24 +1,18 @@
-# Proyecto Final: TECHLAB - Sistema de Gestión de E-commerce - Agencia de Habilidades para el Futuro - Talento Tech
+# Proyecto Final: TECHLAB - Sistema de Gestión de E-commerce
 
-## Alumno:
-Torres Ezequiel 
+## Datos del Alumno
 
-## Materia:
-Programación Orientada a Objetos  / Back - End / Java
+- **Alumno**: Torres Ezequiel
+- **Materia**: Programación Orientada a Objetos / Back-End / Java
+- **Profesor**: Miguel Angel Nefle
+- **Tutor/a**: Natalia Themtham
+- **Institución**: Agencia de Habilidades para el Futuro - Talento Tech
 
-
-## Profesor: 
-Miguel Angel Nefle
-
-## Tutor/a:
-Natalia Themtham
 ---
 
 ## 📋 Descripción del Proyecto
 
-Este proyecto es una API RESTful desarrollada en **Java con Spring Boot** y una interfaz de usuario en **HTML/CSS/JS vanilla**, que funciona como sistema de gestión de un e-commerce llamado TECHLAB.
-
-El sistema permite gestionar productos, categorías, carrito de compras, órdenes/pedidos y control de stock.
+Este proyecto es un **sistema de gestión de e-commerce**, desarrollado en **Java con Spring Boot** (Back-End) y **HTML/CSS/JavaScript Vanilla** (Front-End), diseñado para gestionar productos, categorías, carrito de compras, pedidos y control de stock.
 
 ---
 
@@ -26,95 +20,122 @@ El sistema permite gestionar productos, categorías, carrito de compras, órdene
 
 ### 1. Entidades Principales
 
-- **Producto**: id, nombre, descripción, precio, categoría, imagen, stock.
-- **Pedido/Orden**: id, lista de productos/lineas, fecha de creación, estado.
-- **LineaPedido**: objeto intermedio que asocia Producto + Cantidad.
-- **EstadoPedido**: enum con los estados PENDIENTE, CONFIRMADO, ENVIADO, ENTREGADO, CANCELADO.
+| Entidad          | Atributos                                                                                                                      |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Producto**     | `id` (Long), `nombre` (String), `descripcion` (String), `precio` (double), `categoria` (String), `imagen` (URL), `stock` (int) |
+| **Pedido**       | `id` (Long), `lineas` (List<LineaPedido>), `fecha` (LocalDateTime), `estado` (EstadoPedido)                                    |
+| **LineaPedido**  | `id` (Long), `producto` (Producto), `cantidad` (int)                                                                           |
+| **EstadoPedido** | Enum: `PENDIENTE`, `CONFIRMADO`, `ENVIADO`, `ENTREGADO`, `CANCELADO`                                                           |
 
 ### 2. Endpoints REST Implementados
 
-| Método | Endpoint              | Descripción                                |
-| ------ | --------------------- | ------------------------------------------ |
-| GET    | `/api/productos`      | Listar todos los productos                 |
-| GET    | `/api/productos/{id}` | Obtener detalle de un producto por ID      |
-| POST   | `/api/productos`      | Crear un nuevo producto                    |
-| PUT    | `/api/productos/{id}` | Actualizar un producto existente           |
-| DELETE | `/api/productos/{id}` | Eliminar un producto                       |
-| POST   | `/api/pedidos`        | Crear un pedido (valida y descuenta stock) |
-| GET    | `/api/pedidos`        | Listar todos los pedidos (historial)       |
+| Método | Endpoint                         | Descripción                                |
+| ------ | -------------------------------- | ------------------------------------------ |
+| GET    | `/api/productos`                 | Listar todos los productos                 |
+| GET    | `/api/productos/{id}`            | Obtener detalle de un producto por ID      |
+| GET    | `/api/productos/buscar?nombre=X` | Buscar productos por nombre                |
+| POST   | `/api/productos`                 | Crear un nuevo producto                    |
+| PUT    | `/api/productos/{id}`            | Actualizar un producto existente           |
+| DELETE | `/api/productos/{id}`            | Eliminar un producto                       |
+| POST   | `/api/pedidos`                   | Crear un pedido (valida y descuenta stock) |
+| GET    | `/api/pedidos`                   | Listar todos los pedidos (historial)       |
 
 ### 3. Lógica de Negocio
 
-- ✅ Validación de stock suficiente al momento de crear un pedido.
-- ✅ Descuento automático de stock al confirmar un pedido.
-- ✅ Excepción personalizada `StockInsuficienteException` con manejo global de errores (HTTP 400).
-- ✅ Excepción `ProductoNoEncontradoException` para manejo de errores (HTTP 404).
-- ✅ Alertas en el frontend para productos con stock menor a 5 unidades.
+- ✅ **Validación de stock**: Verifica que haya stock suficiente al crear un pedido.
+- ✅ **Descuento de stock**: Descuenta automáticamente el stock al confirmar un pedido.
+- ✅ **Excepciones personalizadas**: `StockInsuficienteException` (HTTP 400) y `ProductoNoEncontradoException` (HTTP 404).
+- ✅ **Manejo global de errores**: `GlobalExceptionHandler` para manejar excepciones en toda la API.
+- ✅ **Control de stock crítico**: Alertas en el frontend para productos con stock menor a 5 unidades.
+- ✅ **Buenas prácticas Spring Boot**: Inyección de dependencias por constructor (mejor práctica).
 
 ### 4. Organización del Código
 
-El proyecto está organizado en paquetes lógicos según la temática:
+El proyecto sigue una estructura modular y organizada en paquetes lógicos:
 
-- `com.techlab.productos` → Entidad Producto
-- `com.techlab.pedidos` → Entidades Pedido y LineaPedido
-- `com.techlab.excepciones`→ Excepciones personalizadas y GlobalExceptionHandler
-- `com.techlab.controller` → Controladores REST
-- `com.techlab.service` → TiendaService (logica de negocio)
-- `com.techlab.repository` → Repositorios JPA (acceso a datos)
+- `com.techlab` → Paquete principal
+  - `productos` → Entidad `Producto`
+  - `pedidos` → Entidades `Pedido`, `LineaPedido` y `EstadoPedido`
+  - `excepciones` → Excepciones personalizadas y `GlobalExceptionHandler`
+  - `controller` → Controladores REST (`ProductoController`, `PedidoController`)
+  - `service` → `TiendaService` (logica de negocio)
+  - `repository` → Repositorios JPA (`ProductoRepository`, `PedidoRepository`)
 
-### 5. Frontend - Menú Principal
+---
 
-El HTML cuenta con la interfaz completa, alineada con los requerimientos:
+## 🎨 Frontend - Funcionalidades Principales
 
-1. **Gestionar Productos** (a: Agregar, b: Listar, c: Buscar por ID, d: Actualizar, e: Eliminar, f: Volver)
+El frontend cuenta con una interfaz intuitiva y fácil de usar con las siguientes opciones:
+
+1. **Gestionar Productos**
+   - Agregar, listar, buscar por ID, actualizar y eliminar productos.
 2. **Gestionar Categorías**
+   - Ver y listado de categorías (se crean automáticamente al agregar productos).
 3. **Ver Carrito de Compras**
+   - Agregar productos al carrito, ver el total.
 4. **Realizar Pedido**
-5. **Consultar Historial de Pedidos**
-6. **Administración (usuarios y stock)**
+   - Confirmar el pedido y descontar el stock.
+5. **Historial de Pedidos**
+   - Ver todos los pedidos realizados con su estado y total.
+6. **Administración**
+   - Ver alertas de stock crítico (productos con menos de 5 unidades).
 
 ---
 
 ## 🛠️ Stack Tecnológico
 
-- **Java 17 o superior**
-- **Spring Boot 3.x**
-  - Spring Data JPA (para acceso a datos)
-  - Spring Web (para la API REST)
-  - H2 Database (base de datos en archivo, para persistencia sin instalación)
-- **HTML 5 / CSS 3 / JavaScript Vanilla**
-- **Bootstrap 5** (para la interfaz de usuario)
+| Categoría        | Tecnologías                                                        |
+| ---------------- | ------------------------------------------------------------------ |
+| **Back-End**     | Java 17+, Spring Boot 3.x, Spring Data JPA, Hibernate, H2 Database |
+| **Front-End**    | HTML 5, CSS 3, JavaScript Vanilla, Bootstrap 5                     |
+| **Herramientas** | Maven, Git/GitHub, VS Code                                         |
 
 ---
 
-## 🚀 Cómo ejecutar el proyecto
+## 🚀 Como Ejecutar el Proyecto
 
-1. **Abrir la terminal** y navegar a la carpeta del proyecto.
-2. Ejecutar el comando:
+1. **Prerrequisitos**
+
+- Tener instalado:
+  - Java 17 o superior
+  - Maven
+  - Git (opcional, para clonar el repositorio)
+
+2. **Paso a Paso**
+
+1. **Clonar el repositorio** (opcional si ya tienes el proyecto):
+   ```bash
+   git clone https://github.com/EzequielTorre/entregaFinal.java.git
+   ```
+1. **Navegar a la carpeta del proyecto**:
+   ```bash
+   cd entregaFinal.java
+   ```
+1. **Ejecutar la aplicación**:
    ```bash
    mvn spring-boot:run
    ```
-3. **Abrir el navegador** y visitar:
-   - Aplicación: `http://localhost:8082/index.html`
+1. **Abrir el navegador y acceder a**:
+   - Aplicación (Frontend): `http://localhost:8082/index.html`
    - Consola H2 (para ver la base de datos): `http://localhost:8082/h2-console`
-     - URL JDBC: `jdbc:h2:file:./data/techlabdb`
+     - JDBC URL: `jdbc:h2:file:./data/techlabdb`
      - Usuario: `sa`
-     - Contraseña: (vacía)
+     - Contraseña: (dejar vacía)
 
 ---
 
-## � Estructura del Proyecto
+## 📁 Estructura del Proyecto
 
 ```
 src/main/
 ├── java/com/techlab/
-│   ├── TechlabApplication.java (clase principal de Spring Boot)
+│   ├── TechlabApplication.java (clase principal)
 │   ├── productos/
-│   │   └── Producto.java
+│   │   └── Producto.java (entidad producto)
 │   ├── pedidos/
-│   │   ├── EstadoPedido.java
-│   │   ├── LineaPedido.java
-│   │   └── Pedido.java
+│   │   ├── EstadoPedido.java (enum de estados)
+│   │   ├── LineaPedido.java (entidad intermedia)
+│   │   └── Pedido.java (entidad pedido)
 │   ├── excepciones/
 │   │   ├── StockInsuficienteException.java
 │   │   ├── ProductoNoEncontradoException.java
@@ -123,36 +144,43 @@ src/main/
 │   │   ├── ProductoController.java
 │   │   └── PedidoController.java
 │   ├── service/
-│   │   └── TiendaService.java
+│   │   └── TiendaService.java (logica de negocio)
 │   └── repository/
-│       ├── ProductoRepository.java
-│       └── PedidoRepository.java
+│       ├── ProductoRepository.java (repo de productos)
+│       └── PedidoRepository.java (repo de pedidos)
 └── resources/
-    ├── application.properties (configuración de Spring Boot y DB)
+    ├── application.properties (configuracion)
     └── static/
-        ├── index.html
-        ├── css/style.css
-        └── js/app.js
+        ├── index.html (interfaz principal)
+        ├── css/style.css (estilos)
+        └── js/app.js (logica frontend)
 ```
 
 ---
 
-## 📝 Notas
+## 📝 Notas Importantes
 
-- **Persistencia**: Los datos se guardan en un archivo `techlabdb.mv.db` dentro de la carpeta `data/`, por lo que no se pierden al cerrar la aplicación.
-- **CORS**: La API está configurada para permitir conexiones desde cualquier origen (para facilitar el desarrollo).
+- **Persistencia**: Los datos se guardan en un archivo `techlabdb.mv.db` dentro de la carpeta `data/`, por lo que NO se pierden al cerrar la aplicación.
+- **CORS**: La API está configurada para permitir conexiones desde cualquier origen para facilitar el desarrollo.
+- **Seguridad**: Esta es una versión para entrega final, por lo que no incluye seguridad (se puede agregar Spring Security en futuras versiones).
 
 ---
 
 ## 🎯 Conclusión
 
-El proyecto cumple con **todos los requerimientos obligatorios** especificados, demostrando el correcto uso de:
+Este proyecto cumple con **todos los requerimientos obligatorios** y demuestra el uso práctico de conceptos avanzados de:
 
-- POO (encapsulamiento, métodos get/set)
-- Colecciones (ArrayList y Sets para categorías)
-- Excepciones personalizadas y manejo global de errores
+- Programación Orientada a Objetos (encapsulamiento, constructores, métodos get/set)
 - API RESTful con Spring Boot
-- JPA/Hibernate para acceso a datos
-- Integración entre frontend y backend usando fetch API
+- Acceso a bases de datos con JPA/Hibernate
+- Manejo de excepciones personalizadas
+- Integración entre Frontend y Backend con Fetch API
+- Buenas prácticas de desarrollo en Java y Spring Boot
 
+¡Es un proyecto listo para entrega! 😊
 
+---
+
+## 📄 Licencia
+
+Este proyecto es de uso educativo y fue desarrollado como trabajo final de la materia Programación Orientada a Objetos / Back-End / Java.
