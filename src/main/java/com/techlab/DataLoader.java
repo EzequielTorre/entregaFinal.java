@@ -16,9 +16,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Si ya hay productos, no volvemos a cargarlos
         if (productoRepository.count() == 0) {
-            // Agregamos productos de ejemplo
             Producto p1 = new Producto(
                 "Laptop Gamer",
                 "Laptop con procesador Intel i7, 16GB RAM y 1TB SSD",
